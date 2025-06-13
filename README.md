@@ -21,7 +21,7 @@ API para gerenciamento de fazendas desenvolvida com NestJS e Clean Architecture.
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/farm-api.git
+git clone https://github.com/kenielnunes/farm-api.git
 cd farm-api
 ```
 
@@ -42,7 +42,7 @@ DB_HOST=localhost
 DB_PORT=5432
 DB_USER=seu_usuario
 DB_PASSWORD=sua_senha
-DB_NAME=farm_api
+DB_NAME=farm_db
 
 # Application
 PORT=3000
@@ -63,6 +63,8 @@ npm run migration:run
 
 ### Desenvolvimento
 ```bash
+npm i
+
 npm run start:dev
 ```
 
@@ -97,6 +99,7 @@ src/
 │   ├── cultures/         # Módulo de culturas
 │   ├── farms/           # Módulo de fazendas
 │   └── producers/       # Módulo de produtores
+│   └── dashboard/       # Módulo de dashboard
 └── shared/              # Código compartilhado
 ```
 
@@ -111,9 +114,5 @@ src/
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 📫 Contato
-
-Seu Nome - [@seu_twitter](https://twitter.com/seu_twitter) - email@exemplo.com
 
 Link do projeto: [https://github.com/kenielnunes/farm-api](https://github.com/kenielnunes/farm-api)
