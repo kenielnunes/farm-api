@@ -2,29 +2,29 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
 
-console.log('process.env.POSTGRES_HOST -> ', process.env.POSTGRES_HOST);
 export const databaseConfig = (configService: ConfigService): TypeOrmModuleOptions => {
-  const host = configService.get('POSTGRES_HOST');
-  console.log('ConfigService POSTGRES_HOST:', host);
-  console.log('All env variables:', configService.get('POSTGRES_USER', 'postgres'));
+  const host = configService.get('DB_HOST');
+  console.log('All env variables:', configService.get('DB_USER', 'postgres'));
 
   console.log('Database connection config:', {
-    host: configService.get('POSTGRES_HOST'),
-    port: configService.get('POSTGRES_PORT'),
-    username: configService.get('POSTGRES_USER'),
-    database: configService.get('POSTGRES_DB'),
-    password: configService.get('POSTGRES_PASSWORD'),
+    host: configService.get('DB_HOST'),
+    port: configService.get('DB_PORT'),
+    username: configService.get('DB_USER'),
+    database: configService.get('DB_NAME'),
+    password: configService.get('DB_PASSWORD'),
   });
 
   return {
     type: 'postgres',
     host: host || 'localhost',
-    port: configService.get('POSTGRES_PORT', 5432),
-    username: configService.get('POSTGRES_USER'),
-    password: configService.get('POSTGRES_PASSWORD'),
-    database: configService.get('POSTGRES_DB'),
+    port: configService.get('DB_PORT', 5432),
+    username: configService.get('DB_USER'),
+    password: configService.get('DB_PASSWORD'),
+    database: configService.get('DB_NAME'),
     entities: [join(__dirname, '..', '**', '*.entity.{ts,js}')],
     synchronize: configService.get('NODE_ENV') !== 'production',
+    migrations: [join(__dirname, '..', 'database', 'migrations', '*.{ts,js}')],
+    migrationsRun: false,
     logging: configService.get('NODE_ENV') !== 'production',
     retryAttempts: 10,
     retryDelay: 3000,

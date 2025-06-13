@@ -1,14 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { AppException } from '../../../../shared/exceptions/app.exception';
 
 @Injectable()
 export class DocumentValidatorService {
-  isValid(document: string): boolean {
+  validate(document: string): void {
     const onlyNumbers = document.replace(/\D/g, '');
 
-    if (onlyNumbers.length === 11) return this.validateCPF(onlyNumbers);
-    if (onlyNumbers.length === 14) return this.validateCNPJ(onlyNumbers);
+    if (onlyNumbers.length === 11) {
+      if (!this.validateCPF(onlyNumbers)) {
+        throw new AppException(
+          'INVALID_CPF',
+          'CPF inválido',
+          400,
+        );
+      }
+      return;
+    }
 
-    return false;
+    if (onlyNumbers.length === 14) {
+      if (!this.validateCNPJ(onlyNumbers)) {
+        throw new AppException(
+          'INVALID_CNPJ',
+          'CNPJ inválido',
+          400,
+        );
+      }
+      return;
+    }
+
+    throw new AppException(
+      'INVALID_DOCUMENT',
+      'Documento inválido. Deve ser um CPF (11 dígitos) ou CNPJ (14 dígitos)',
+      400,
+    );
   }
 
   private validateCPF(cpf: string): boolean {

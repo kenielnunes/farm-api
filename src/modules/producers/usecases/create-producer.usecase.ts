@@ -13,11 +13,7 @@ export class CreateProducerUseCase {
   ) { }
 
   async execute(input: CreateProducerDto): Promise<void> {
-    const isValidDoc = this.documentValidator.isValid(input.document);
-
-    if (!isValidDoc) {
-      throw new Error('CPF ou CNPJ inválido');
-    }
+    this.documentValidator.validate(input.document);
 
     const producer = new Producer(
       crypto.randomUUID(),
