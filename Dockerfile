@@ -5,4 +5,9 @@ RUN npm install
 COPY . .
 RUN npm run build
 EXPOSE 3000
-CMD ["npm", "run", "start:prod"]
+
+# Criar script de inicialização
+RUN echo '#!/bin/sh\nnpm run migration:run\nnpm run start:prod' > /app/start.sh && \
+    chmod +x /app/start.sh
+
+CMD ["/app/start.sh"]
