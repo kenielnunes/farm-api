@@ -1,13 +1,17 @@
-FROM node:22.16.0
+FROM node:22.16.0-alpine
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
+
+# Garantir que o .env está disponível
+COPY .env .env
+
 RUN npm run build
 EXPOSE 3000
 
-# Criar script de inicialização
-RUN echo '#!/bin/sh\nnpm run migration:run\nnpm run start:prod' > /app/start.sh && \
-    chmod +x /app/start.sh
+# Copiar e configurar o script de inicialização
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
 CMD ["/app/start.sh"]
