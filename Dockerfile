@@ -4,9 +4,6 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
-# Garantir que o .env está disponível
-COPY .env .env
-
 RUN npm run build
 EXPOSE 3000
 
