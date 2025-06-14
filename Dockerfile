@@ -5,7 +5,10 @@ RUN npm install
 COPY . .
 
 RUN npm run build
-EXPOSE 3000
+
+# Expor a porta 3000
+ENV PORT=3000
+EXPOSE ${PORT}
 
 # Copiar e configurar o script de inicialização
 COPY start.sh /app/start.sh

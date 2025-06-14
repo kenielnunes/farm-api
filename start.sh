@@ -18,5 +18,8 @@ wait_for_db
 # Rodar migrações
 npm run migration:run
 
+# Garantir que a aplicação está escutando na porta correta
+export PORT=${PORT:-3000}
+
 # Iniciar a aplicação
 npm run start:prod 
