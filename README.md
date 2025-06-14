@@ -2,6 +2,13 @@
 
 API para gerenciamento de fazendas desenvolvida com NestJS e Clean Architecture.
 
+## 🚀 API Online
+
+A API está disponível em: [https://farm-api-ks3k.onrender.com](https://farm-api-ks3k.onrender.com)
+
+### Documentação da API
+- Swagger UI: [https://farm-api-ks3k.onrender.com/api](https://farm-api-ks3k.onrender.com/api)
+
 ## 🚀 Tecnologias
 
 - NestJS
@@ -87,7 +94,9 @@ npm run start:prod
 
 ## 📚 Documentação da API
 
-A documentação da API está disponível em `/api` quando o servidor estiver rodando.
+A documentação da API está disponível em:
+- Local: http://localhost:3000/api
+- Online: https://farm-api-ks3k.onrender.com/api
 
 ## 🏗️ Estrutura do Projeto
 
