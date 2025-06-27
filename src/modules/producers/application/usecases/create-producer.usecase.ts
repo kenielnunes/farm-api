@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { removeSpecialCharacters } from 'src/shared/utils/string.utils';
 import { Producer } from '../../domain/entities/producer';
@@ -6,7 +6,6 @@ import { DocumentValidatorService } from '../../domain/services/document-validat
 import { IProducerRepository } from '../../infra/repositories/producer.repository.interface';
 import { CreateProducerDto } from '../../presentation/dto/create-producer.dto';
 
-@Injectable()
 export class CreateProducerUseCase {
   constructor(
     @Inject('IProducerRepository')
