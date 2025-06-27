@@ -1,5 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UserRole } from 'src/modules/users/domain/enums/user-role.enum';
+import { Roles } from 'src/shared/decorators/roles.decorator';
 import { CreateFarmUseCase } from '../../application/usecases/create-farm.usecase';
 import { CreateFarmDto } from '../dto/create-farm.dto';
 
@@ -9,6 +11,7 @@ export class FarmController {
   constructor(private readonly createFarmUseCase: CreateFarmUseCase) { }
 
   @Post()
+  @Roles(UserRole.ADMIN, UserRole.GESTOR)
   @ApiOperation({
     summary: 'Criar uma nova fazenda',
     description: 'Cria uma nova fazenda associada a um produtor rural existente. A soma das áreas agricultável e de vegetação não pode ultrapassar a área total.'

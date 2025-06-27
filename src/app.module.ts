@@ -11,6 +11,7 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { FarmsModule } from './modules/farms/farms.module';
 import { ProducersModule } from './modules/producers/producers.module';
 import { UsersModule } from './modules/users/users.module';
+import { RolesGuard } from './shared/guards/roles.guard';
 import { ValidationInterceptor } from './shared/interceptors/validation.interceptor';
 
 @Module({
@@ -22,6 +23,10 @@ import { ValidationInterceptor } from './shared/interceptors/validation.intercep
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
   imports: [
