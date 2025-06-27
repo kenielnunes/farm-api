@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Farm } from 'src/modules/farms/domain/entities/farm';
 
 describe('Farm Entity', () => {
-  it('deve criar uma fazenda válida', () => {
+  it('should create a valid farm', () => {
     const id = faker.string.uuid();
     const name = faker.company.name();
     const city = faker.location.city();
@@ -28,7 +28,7 @@ describe('Farm Entity', () => {
     expect(farm.vegetationArea).toBe(vegetationArea);
   });
 
-  it('deve lançar erro se a soma das áreas for maior que a área total', () => {
+  it('should throw if the sum of arable and vegetation areas exceeds total area', () => {
     const totalArea = 50;
     const arableArea = 30;
     const vegetationArea = 30;

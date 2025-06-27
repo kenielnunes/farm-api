@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { Producer } from 'src/modules/producers/domain/entities/producer';
 
 describe('Producer Entity', () => {
-  it('deve criar um produtor válido', () => {
+  it('should create a valid producer', () => {
     const id = faker.string.uuid();
     const name = faker.person.fullName();
     const document = faker.string.numeric(11);
