@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PaginatedResponse, PaginationParams } from 'src/shared/interfaces/pagination.interface';
 import { Repository } from 'typeorm';
 import { Producer } from '../../domain/entities/producer';
 import { ProducerEntity } from '../entities/producer.entity';
@@ -38,5 +39,22 @@ export class ProducerRepository implements IProducerRepository {
 
   async delete(id: string): Promise<void> {
     await this.ormRepo.delete(id);
+  }
+
+  async findAll(pagination: PaginationParams): Promise<PaginatedResponse<ProducerEntity>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+    const [data, totalItems] = await this.ormRepo.findAndCount({ skip, take: limit });
+    const totalPages = Math.ceil(totalItems / limit);
+    return {
+      data,
+      meta: {
+        totalItems,
+        itemCount: data.length,
+        itemsPerPage: limit,
+        totalPages,
+        currentPage: page,
+      },
+    };
   }
 }
