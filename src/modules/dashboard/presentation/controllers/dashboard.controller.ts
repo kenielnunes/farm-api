@@ -16,6 +16,24 @@ export class DashboardController {
     status: 200,
     description: 'Dados do dashboard obtidos com sucesso',
     type: Dashboard,
+    schema: {
+      example: {
+        totalFarms: 12,
+        totalHectares: 3500,
+        byState: [
+          { state: 'SP', count: 5 },
+          { state: 'MG', count: 7 }
+        ],
+        byCulture: [
+          { culture: 'Soja', area: 1200 },
+          { culture: 'Milho', area: 800 }
+        ],
+        byLandUse: [
+          { type: 'Arable', area: 2000 },
+          { type: 'Vegetation', area: 1500 }
+        ]
+      }
+    }
   })
   async getDashboard(@Res() res: Response) {
     try {
