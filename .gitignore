@@ -50,6 +50,8 @@ lerna-debug.log*
 .temp
 .tmp
 
+.ide
+
 # Runtime data
 pids
 *.pid

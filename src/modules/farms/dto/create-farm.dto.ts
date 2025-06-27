@@ -8,8 +8,8 @@ export class CreateFarmDto {
     minLength: 3,
     maxLength: 100
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'O nome da fazenda deve ser um texto válido.' })
+  @IsNotEmpty({ message: 'O nome da fazenda não pode ser vazio.' })
   name: string;
 
   @ApiProperty({
@@ -17,8 +17,8 @@ export class CreateFarmDto {
     example: '123e4567-e89b-12d3-a456-426614174000',
     format: 'uuid'
   })
-  @IsUUID()
-  @IsNotEmpty()
+  @IsUUID('4', { message: 'O ID do produtor deve ser um UUID válido (versão 4).' })
+  @IsNotEmpty({ message: 'O ID do produtor não pode ser vazio.' })
   producerId: string;
 
   @ApiProperty({
@@ -27,8 +27,8 @@ export class CreateFarmDto {
     minLength: 2,
     maxLength: 100
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'A cidade deve ser um texto válido.' })
+  @IsNotEmpty({ message: 'A cidade não pode ser vazia.' })
   city: string;
 
   @ApiProperty({
@@ -37,8 +37,8 @@ export class CreateFarmDto {
     minLength: 2,
     maxLength: 2
   })
-  @IsString()
-  @IsNotEmpty()
+  @IsString({ message: 'O estado deve ser um texto válido.' })
+  @IsNotEmpty({ message: 'O estado não pode ser vazio.' })
   state: string;
 
   @ApiProperty({
@@ -46,8 +46,8 @@ export class CreateFarmDto {
     example: 1000,
     minimum: 0
   })
-  @IsNumber()
-  @Min(0)
+  @IsNumber({}, { message: 'A área total deve ser um número válido.' })
+  @Min(0, { message: 'A área total não pode ser negativa.' })
   totalArea: number;
 
   @ApiProperty({
@@ -55,8 +55,8 @@ export class CreateFarmDto {
     example: 600,
     minimum: 0
   })
-  @IsNumber()
-  @Min(0)
+  @IsNumber({}, { message: 'A área agricultável deve ser um número válido.' })
+  @Min(0, { message: 'A área agricultável não pode ser negativa.' })
   arableArea: number;
 
   @ApiProperty({
@@ -64,7 +64,7 @@ export class CreateFarmDto {
     example: 400,
     minimum: 0
   })
-  @IsNumber()
-  @Min(0)
+  @IsNumber({}, { message: 'A área de vegetação deve ser um número válido.' })
+  @Min(0, { message: 'A área de vegetação não pode ser negativa.' })
   vegetationArea: number;
-} 
+}
