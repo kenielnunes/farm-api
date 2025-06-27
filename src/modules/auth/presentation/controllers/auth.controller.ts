@@ -21,7 +21,12 @@ export class AuthController {
   @ApiResponse({ status: 201, description: 'Login realizado com sucesso' })
   @ApiResponse({ status: 401, description: 'Credenciais inválidas' })
   async login(@Body() dto: LoginDto) {
-    return this.loginUseCase.execute(dto);
+    try {
+      return await this.loginUseCase.execute(dto);
+    } catch (err) {
+      console.error('ERRO NO LOGIN:', err);
+      throw err;
+    }
   }
 
   @Public()

@@ -1,9 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateCultureUseCase } from '../../application/usecases/create-culture.usecase';
 import { CreateCultureDto } from '../dto/create-culture.dto';
 
 @ApiTags('Culturas')
+@ApiBearerAuth('JWT-auth')
 @Controller('cultures')
 export class CultureController {
   constructor(private readonly createCultureUseCase: CreateCultureUseCase) { }

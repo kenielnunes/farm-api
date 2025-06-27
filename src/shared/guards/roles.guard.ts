@@ -1,7 +1,8 @@
-import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { UserRole } from 'src/modules/users/domain/enums/user-role.enum';
 import { ROLES_KEY } from '../decorators/roles.decorator';
+import { AppException } from '../exceptions/app.exception';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -17,7 +18,7 @@ export class RolesGuard implements CanActivate {
     }
     const { user } = context.switchToHttp().getRequest();
     if (!user || !requiredRoles.includes(user.role)) {
-      throw new ForbiddenException('Acesso negado: perfil insuficiente');
+      throw new AppException('FORBIDDEN', 'Acesso negado: perfil insuficiente');
     }
     return true;
   }

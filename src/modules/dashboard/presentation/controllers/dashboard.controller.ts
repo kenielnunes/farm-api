@@ -1,9 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetDashboardUseCase } from '../../application/usecases/get-dashboard.usecase';
 import { Dashboard } from '../../domain/entities/dashboard';
 
 @ApiTags('Dashboard')
+@ApiBearerAuth('JWT-auth')
 @Controller('dashboard')
 export class DashboardController {
   constructor(private readonly getDashboardUseCase: GetDashboardUseCase) { }

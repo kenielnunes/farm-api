@@ -1,11 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { UserRole } from 'src/modules/users/domain/enums/user-role.enum';
 import { Roles } from 'src/shared/decorators/roles.decorator';
 import { CreateFarmUseCase } from '../../application/usecases/create-farm.usecase';
 import { CreateFarmDto } from '../dto/create-farm.dto';
 
 @ApiTags('Fazendas')
+@ApiBearerAuth('JWT-auth')
 @Controller('farms')
 export class FarmController {
   constructor(private readonly createFarmUseCase: CreateFarmUseCase) { }
@@ -42,8 +44,13 @@ export class FarmController {
       }
     }
   })
-  async create(@Body() dto: CreateFarmDto): Promise<{ message: string }> {
-    await this.createFarmUseCase.execute(dto);
-    return { message: 'Fazenda criada com sucesso' };
+  async create(@Body() dto: CreateFarmDto, @Res() res: Response) {
+    try {
+      await this.createFarmUseCase.execute(dto);
+      return res.status(HttpStatus.CREATED).json({ message: 'Fazenda criada com sucesso' });
+    } catch (err) {
+      console.error('ERRO NA CRIAÇÃO DE FAZENDA:', err);
+      return res.status(HttpStatus.BAD_REQUEST).json({ message: err.message || 'Erro ao criar fazenda' });
+    }
   }
 } 

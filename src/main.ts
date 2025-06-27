@@ -18,6 +18,17 @@ async function bootstrap() {
     .setTitle('Farm API')
     .setDescription('API para gerenciamento de fazendas')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'Authorization',
+        description: 'Informe o token JWT no formato: Bearer <token>',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
