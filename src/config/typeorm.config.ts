@@ -14,9 +14,9 @@ export default new DataSource({
   database: process.env.DB_NAME,
   entities: [path.join(__dirname, '..', '**', '*.entity.{ts,js}')],
   migrations: [path.join(__dirname, '..', 'database', 'migrations', '*.{ts,js}')],
-  synchronize: false,
+  synchronize: process.env.NODE_ENV !== 'production',
   ssl: {
-    rejectUnauthorized: false
+    rejectUnauthorized: true
   },
   extra: {
     family: 4 // Força IPv4
