@@ -1,10 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/shared/decorators/public.decorator';
-import { LoginDto } from '../../dto/login.dto';
-import { RefreshTokenDto } from '../../dto/refresh-token.dto';
-import { LoginUseCase } from '../../usecases/login.usecase';
-import { RefreshTokenUseCase } from '../../usecases/refresh-token.usecase';
+import { LoginUseCase } from '../../application/usecases/login.usecase';
+import { RefreshTokenUseCase } from '../../application/usecases/refresh-token.usecase';
+import { LoginDto } from '../dto/login.dto';
+import { RefreshTokenDto } from '../dto/refresh-token.dto';
 
 @ApiTags('Autenticação')
 @Controller('auth')

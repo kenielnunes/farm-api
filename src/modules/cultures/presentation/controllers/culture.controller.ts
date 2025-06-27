@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateCultureDto } from '../../dto/create-culture.dto';
-import { CreateCultureUseCase } from '../../usecases/create-culture.usecase';
+import { CreateCultureUseCase } from '../../application/usecases/create-culture.usecase';
+import { CreateCultureDto } from '../dto/create-culture.dto';
 
 @ApiTags('Culturas')
 @Controller('cultures')

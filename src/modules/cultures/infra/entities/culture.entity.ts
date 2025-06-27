@@ -1,5 +1,5 @@
+import { FarmEntity } from 'src/modules/farms/infra/entities/farm.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { FarmEntity } from '../../../farms/infra/entities/farm.entity';
 
 @Entity('cultures')
 export class CultureEntity {

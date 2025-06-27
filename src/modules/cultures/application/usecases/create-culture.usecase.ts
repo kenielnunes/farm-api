@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AppException } from 'src/shared/exceptions/app.exception';
-import { Culture } from '../domain/entities/culture';
-import { CultureValidatorService } from '../domain/services/culture-validator.service';
-import { CreateCultureDto } from '../dto/create-culture.dto';
-import { ICultureRepository } from '../infra/repositories/culture.repository.interface';
+import { Culture } from '../../domain/entities/culture';
+import { CultureValidatorService } from '../../domain/services/culture-validator.service';
+import { ICultureRepository } from '../../infra/repositories/culture.repository.interface';
+import { CreateCultureDto } from '../../presentation/dto/create-culture.dto';
 
 @Injectable()
 export class CreateCultureUseCase {

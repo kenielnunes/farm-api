@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
-import { Dashboard } from '../domain/entities/dashboard';
-import { IDashboardRepository } from '../infra/repositories/dashboard.repository.interface';
+import { Dashboard } from '../../domain/entities/dashboard';
+import { IDashboardRepository } from '../../infra/repositories/dashboard.repository.interface';
 
 
 export class GetDashboardUseCase {

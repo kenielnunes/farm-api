@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { GetDashboardUseCase } from '../../application/usecases/get-dashboard.usecase';
 import { Dashboard } from '../../domain/entities/dashboard';
-import { GetDashboardUseCase } from '../../usecases/get-dashboard.usecase';
 
 @ApiTags('Dashboard')
 @Controller('dashboard')

@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateFarmDto } from '../../dto/create-farm.dto';
-import { CreateFarmUseCase } from '../../usecases/create-farm.usecase';
+import { CreateFarmUseCase } from '../../application/usecases/create-farm.usecase';
+import { CreateFarmDto } from '../dto/create-farm.dto';
 
 @ApiTags('Fazendas')
 @Controller('farms')

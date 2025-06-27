@@ -1,7 +1,7 @@
 import { HttpStatus } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { AppException } from '../../../shared/exceptions/app.exception';
-import { RefreshTokenDto } from '../dto/refresh-token.dto';
+import { RefreshTokenDto } from 'src/modules/auth/presentation/dto/refresh-token.dto';
+import { AppException } from 'src/shared/exceptions/app.exception';
 
 export class RefreshTokenUseCase {
   constructor(private readonly jwtService: JwtService) { }

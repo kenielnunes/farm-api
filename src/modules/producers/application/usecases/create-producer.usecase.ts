@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Producer } from '../domain/entities/producer';
-import { DocumentValidatorService } from '../domain/services/document-validator.service';
-import { CreateProducerDto } from '../dto/create-producer.dto';
-import { IProducerRepository } from '../infra/repositories/producer.repository.interface';
+import { Producer } from '../../domain/entities/producer';
+import { DocumentValidatorService } from '../../domain/services/document-validator.service';
+import { IProducerRepository } from '../../infra/repositories/producer.repository.interface';
+import { CreateProducerDto } from '../../presentation/dto/create-producer.dto';
 
 @Injectable()
 export class CreateProducerUseCase {

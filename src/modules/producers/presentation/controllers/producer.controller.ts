@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CreateProducerDto } from '../../dto/create-producer.dto';
-import { CreateProducerUseCase } from '../../usecases/create-producer.usecase';
+import { CreateProducerUseCase } from '../../application/usecases/create-producer.usecase';
+import { CreateProducerDto } from '../dto/create-producer.dto';
 
 @ApiTags('Produtores Rurais')
 @Controller('producers')

@@ -1,9 +1,9 @@
 import { HttpStatus, Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { AppException } from '../../../shared/exceptions/app.exception';
-import { UserRepository } from '../../users/infra/repositories/user.repository';
-import { LoginDto } from '../dto/login.dto';
+import { LoginDto } from 'src/modules/auth/presentation/dto/login.dto';
+import { UserRepository } from 'src/modules/users/infra/repositories/user.repository';
+import { AppException } from 'src/shared/exceptions/app.exception';
 
 export class LoginUseCase {
   constructor(
