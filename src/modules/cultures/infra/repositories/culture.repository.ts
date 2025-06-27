@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PaginatedResponse, PaginationParams } from 'src/shared/interfaces/pagination.interface';
 import { Repository } from 'typeorm';
 import { Culture } from '../../domain/entities/culture';
 import { CultureEntity } from '../entities/culture.entity';
@@ -27,16 +28,76 @@ export class CultureRepository implements ICultureRepository {
     return await this.ormRepo.findOne({ where: { id } });
   }
 
-  async findByFarmId(farmId: string): Promise<CultureEntity[]> {
-    return await this.ormRepo.find({ where: { farmId } });
+  async findByFarmId(farmId: string, pagination: PaginationParams): Promise<PaginatedResponse<CultureEntity>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
+    const [data, totalItems] = await this.ormRepo.findAndCount({
+      where: { farmId },
+      skip,
+      take: limit,
+    });
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+      data,
+      meta: {
+        totalItems,
+        itemCount: data.length,
+        itemsPerPage: limit,
+        totalPages,
+        currentPage: page,
+      },
+    };
   }
 
-  async findByHarvestYear(harvestYear: number): Promise<CultureEntity[]> {
-    return await this.ormRepo.find({ where: { harvestYear } });
+  async findByHarvestYear(harvestYear: number, pagination: PaginationParams): Promise<PaginatedResponse<CultureEntity>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
+    const [data, totalItems] = await this.ormRepo.findAndCount({
+      where: { harvestYear },
+      skip,
+      take: limit,
+    });
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+      data,
+      meta: {
+        totalItems,
+        itemCount: data.length,
+        itemsPerPage: limit,
+        totalPages,
+        currentPage: page,
+      },
+    };
   }
 
-  async findByFarmIdAndHarvestYear(farmId: string, harvestYear: number): Promise<CultureEntity[]> {
-    return await this.ormRepo.find({ where: { farmId, harvestYear } });
+  async findByFarmIdAndHarvestYear(farmId: string, harvestYear: number, pagination: PaginationParams): Promise<PaginatedResponse<CultureEntity>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
+    const [data, totalItems] = await this.ormRepo.findAndCount({
+      where: { farmId, harvestYear },
+      skip,
+      take: limit,
+    });
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+      data,
+      meta: {
+        totalItems,
+        itemCount: data.length,
+        itemsPerPage: limit,
+        totalPages,
+        currentPage: page,
+      },
+    };
   }
 
   async findByFarmAndYearAndName(farmId: string, harvestYear: number, name: string): Promise<CultureEntity | null> {

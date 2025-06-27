@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PaginatedResponse, PaginationParams } from 'src/shared/interfaces/pagination.interface';
 import { Repository } from 'typeorm';
 import { Farm } from '../../domain/entities/farm';
 import { FarmEntity } from '../entities/farm.entity';
@@ -30,8 +31,28 @@ export class FarmRepository implements IFarmRepository {
     return await this.ormRepo.findOne({ where: { id } });
   }
 
-  async findByProducerId(producerId: string): Promise<FarmEntity[]> {
-    return await this.ormRepo.find({ where: { producerId } });
+  async findByProducerId(producerId: string, pagination: PaginationParams): Promise<PaginatedResponse<FarmEntity>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
+    const [data, totalItems] = await this.ormRepo.findAndCount({
+      where: { producerId },
+      skip,
+      take: limit,
+    });
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+      data,
+      meta: {
+        totalItems,
+        itemCount: data.length,
+        itemsPerPage: limit,
+        totalPages,
+        currentPage: page,
+      },
+    };
   }
 
   async update(id: string, farm: Partial<Farm>): Promise<FarmEntity | null> {
