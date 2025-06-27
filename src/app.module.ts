@@ -9,6 +9,7 @@ import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { CulturesModule } from './modules/cultures/cultures.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { FarmsModule } from './modules/farms/farms.module';
+import { HealthController } from './modules/health/presentation/controllers/health.controller';
 import { ProducersModule } from './modules/producers/producers.module';
 import { UsersModule } from './modules/users/users.module';
 import { RolesGuard } from './shared/guards/roles.guard';
@@ -57,5 +58,6 @@ import { ValidationInterceptor } from './shared/interceptors/validation.intercep
       },
     }),
   ],
+  controllers: [HealthController],
 })
 export class AppModule { }
