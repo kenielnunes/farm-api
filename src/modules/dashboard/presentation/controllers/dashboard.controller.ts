@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { GetDashboardUseCase } from '../../application/usecases/get-dashboard.usecase';
 import { Dashboard } from '../../domain/entities/dashboard';
 
@@ -16,7 +17,13 @@ export class DashboardController {
     description: 'Dados do dashboard obtidos com sucesso',
     type: Dashboard,
   })
-  async getDashboard(): Promise<Dashboard> {
-    return await this.getDashboardUseCase.execute();
+  async getDashboard(@Res() res: Response) {
+    try {
+      const dashboard = await this.getDashboardUseCase.execute();
+      return res.status(HttpStatus.OK).json(dashboard);
+    } catch (err) {
+      console.error('ERRO AO OBTER DASHBOARD:', err);
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: err.message || 'Erro ao obter dashboard' });
+    }
   }
 } 

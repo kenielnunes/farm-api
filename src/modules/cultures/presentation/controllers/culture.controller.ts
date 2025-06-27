@@ -1,5 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { CreateCultureUseCase } from '../../application/usecases/create-culture.usecase';
 import { CreateCultureDto } from '../dto/create-culture.dto';
 
@@ -40,8 +41,13 @@ export class CultureController {
       }
     }
   })
-  async create(@Body() dto: CreateCultureDto): Promise<{ message: string }> {
-    await this.createCultureUseCase.execute(dto);
-    return { message: 'Cultura criada com sucesso' };
+  async create(@Body() dto: CreateCultureDto, @Res() res: Response) {
+    try {
+      await this.createCultureUseCase.execute(dto);
+      return res.status(HttpStatus.CREATED).json({ message: 'Cultura criada com sucesso' });
+    } catch (err) {
+      console.error('ERRO NA CRIAÇÃO DE CULTURA:', err);
+      return res.status(HttpStatus.BAD_REQUEST).json({ message: err.message || 'Erro ao criar cultura' });
+    }
   }
 } 

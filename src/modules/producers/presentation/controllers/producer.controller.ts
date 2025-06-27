@@ -1,5 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import { CreateProducerUseCase } from '../../application/usecases/create-producer.usecase';
 import { CreateProducerDto } from '../dto/create-producer.dto';
 
@@ -39,8 +40,13 @@ export class ProducersController {
       }
     }
   })
-  async create(@Body() dto: CreateProducerDto): Promise<{ message: string }> {
-    await this.createProducerUseCase.execute(dto);
-    return { message: 'Produtor rural criado com sucesso' };
+  async create(@Body() dto: CreateProducerDto, @Res() res: Response) {
+    try {
+      await this.createProducerUseCase.execute(dto);
+      return res.status(HttpStatus.CREATED).json({ message: 'Produtor rural criado com sucesso' });
+    } catch (err) {
+      console.error('ERRO NA CRIAÇÃO DE PRODUTOR:', err);
+      return res.status(HttpStatus.BAD_REQUEST).json({ message: err.message || 'Erro ao criar produtor' });
+    }
   }
 }
