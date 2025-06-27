@@ -1,19 +1,26 @@
+import { faker } from '@faker-js/faker';
 import { Producer } from 'src/modules/producers/domain/entities/producer';
 
 describe('Producer Entity', () => {
   it('deve criar um produtor válido', () => {
+    const id = faker.string.uuid();
+    const name = faker.person.fullName();
+    const document = faker.string.numeric(11);
+    const city = faker.location.city();
+    const state = faker.location.state({ abbreviated: true });
+
     const producer = new Producer(
-      'uuid-123',
-      'João da Silva',
-      '12345678901',
-      'Cidade Exemplo',
-      'SP',
+      id,
+      name,
+      document,
+      city,
+      state,
     );
     expect(producer).toBeInstanceOf(Producer);
-    expect(producer.id).toBe('uuid-123');
-    expect(producer.name).toBe('João da Silva');
-    expect(producer.document).toBe('12345678901');
-    expect(producer.city).toBe('Cidade Exemplo');
-    expect(producer.state).toBe('SP');
+    expect(producer.id).toBe(id);
+    expect(producer.name).toBe(name);
+    expect(producer.document).toBe(document);
+    expect(producer.city).toBe(city);
+    expect(producer.state).toBe(state);
   });
 }); 
