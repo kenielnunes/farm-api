@@ -63,4 +63,21 @@ export class FarmRepository implements IFarmRepository {
   async delete(id: string): Promise<void> {
     await this.ormRepo.delete(id);
   }
+
+  public async findAll(pagination: PaginationParams): Promise<PaginatedResponse<FarmEntity>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+    const [data, totalItems] = await this.ormRepo.findAndCount({ skip, take: limit });
+    const totalPages = Math.ceil(totalItems / limit);
+    return {
+      data,
+      meta: {
+        totalItems,
+        itemCount: data.length,
+        itemsPerPage: limit,
+        totalPages,
+        currentPage: page,
+      },
+    };
+  }
 } 

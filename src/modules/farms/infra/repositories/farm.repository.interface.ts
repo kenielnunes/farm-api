@@ -8,4 +8,5 @@ export interface IFarmRepository {
   findByProducerId(producerId: string, pagination: PaginationParams): Promise<PaginatedResponse<FarmEntity>>;
   update(id: string, farm: Partial<Farm>): Promise<FarmEntity | null>;
   delete(id: string): Promise<void>;
+  findAll(pagination: PaginationParams): Promise<PaginatedResponse<FarmEntity>>;
 } 
