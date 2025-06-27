@@ -36,30 +36,24 @@ export class DocumentValidatorService {
   }
 
   private validateCPF(cpf: string): boolean {
-    if (/^(\d)\1{10}$/.test(cpf)) return false;
+    cpf = cpf.replace(/[^\d]+/g, '');
+    if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
 
     let sum = 0;
-    let remainder;
+    for (let i = 0; i < 9; i++) sum += +cpf[i] * (10 - i);
+    let check1 = 11 - (sum % 11);
+    check1 = check1 >= 10 ? 0 : check1;
 
-    for (let i = 1; i <= 9; i++) {
-      sum = sum + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-    }
-
-    remainder = (sum * 10) % 11;
-    if (remainder === 10 || remainder === 11) remainder = 0;
-    if (remainder !== parseInt(cpf.substring(9, 10))) return false;
+    if (check1 !== +cpf[9]) return false;
 
     sum = 0;
-    for (let i = 1; i <= 10; i++) {
-      sum = sum + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-    }
+    for (let i = 0; i < 10; i++) sum += +cpf[i] * (11 - i);
+    let check2 = 11 - (sum % 11);
+    check2 = check2 >= 10 ? 0 : check2;
 
-    remainder = (sum * 10) % 11;
-    if (remainder === 10 || remainder === 11) remainder = 0;
-    if (remainder !== parseInt(cpf.substring(10, 11))) return false;
-
-    return true;
+    return check2 === +cpf[10];
   }
+
 
   private validateCNPJ(cnpj: string): boolean {
     if (/^(\d)\1{13}$/.test(cnpj)) return false;
