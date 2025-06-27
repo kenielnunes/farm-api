@@ -1,5 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post, UseFilters } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/shared/decorators/public.decorator';
 import { AppExceptionFilter } from 'src/shared/filters/app-exception.filter';
 import { CreateUserUseCase } from '../../application/usecases/create-user.usecase';
 import { CreateUserDto } from '../dto/create-user.dto';
@@ -9,6 +10,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 export class UserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) { }
 
+  @Public()
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Cadastrar novo usuário' })
