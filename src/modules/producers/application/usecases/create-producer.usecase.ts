@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import { Producer } from '../../domain/entities/producer';
 import { DocumentValidatorService } from '../../domain/services/document-validator.service';
 import { IProducerRepository } from '../../infra/repositories/producer.repository.interface';
@@ -16,7 +17,7 @@ export class CreateProducerUseCase {
     this.documentValidator.validate(input.document);
 
     const producer = new Producer(
-      crypto.randomUUID(),
+      randomUUID(),
       input.name,
       input.document,
       input.city,
