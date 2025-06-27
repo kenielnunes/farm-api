@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+import { removeSpecialCharacters } from 'src/shared/utils/string.utils';
 import { Producer } from '../../domain/entities/producer';
 import { DocumentValidatorService } from '../../domain/services/document-validator.service';
 import { IProducerRepository } from '../../infra/repositories/producer.repository.interface';
@@ -13,15 +14,15 @@ export class CreateProducerUseCase {
     private readonly documentValidator: DocumentValidatorService,
   ) { }
 
-  async execute(input: CreateProducerDto): Promise<void> {
-    this.documentValidator.validate(input.document);
+  async execute(dto: CreateProducerDto): Promise<void> {
+    this.documentValidator.validate(dto.document);
 
     const producer = new Producer(
       randomUUID(),
-      input.name,
-      input.document,
-      input.city,
-      input.state,
+      dto.name,
+      removeSpecialCharacters(dto.document),
+      dto.city,
+      dto.state,
     );
 
     await this.producerRepository.save(producer);

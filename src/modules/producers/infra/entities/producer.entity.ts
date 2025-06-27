@@ -1,4 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { removeSpecialCharacters } from 'src/shared/utils/string.utils';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { FarmEntity } from '../../../farms/infra/entities/farm.entity';
 
 @Entity('producers')
@@ -26,4 +27,10 @@ export class ProducerEntity {
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  normalizeDocument(): void {
+    this.document = removeSpecialCharacters(this.document)
+  }
 }

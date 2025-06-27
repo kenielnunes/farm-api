@@ -13,12 +13,12 @@ export class CreateCultureUseCase {
     private readonly cultureValidatorService: CultureValidatorService,
   ) { }
 
-  async execute(input: CreateCultureDto): Promise<void> {
-    const cultureName = input.name.toLowerCase();
+  async execute(dto: CreateCultureDto): Promise<void> {
+    const cultureName = dto.name.toLowerCase();
 
     const existingCulture = await this.cultureRepository.findByFarmAndYearAndName(
-      input.farmId,
-      input.harvestYear,
+      dto.farmId,
+      dto.harvestYear,
       cultureName,
     );
 
@@ -32,16 +32,16 @@ export class CreateCultureUseCase {
     }
 
     await this.cultureValidatorService.validateCultureArea(
-      input.farmId,
-      input.plantedArea,
+      dto.farmId,
+      dto.plantedArea,
     );
 
     const culture = new Culture(
       crypto.randomUUID(),
       cultureName,
-      input.plantedArea,
-      input.harvestYear,
-      input.farmId,
+      dto.plantedArea,
+      dto.harvestYear,
+      dto.farmId,
     );
 
     await this.cultureRepository.save(culture);
