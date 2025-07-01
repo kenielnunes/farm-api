@@ -1,3 +1,5 @@
+import { AppException } from "src/shared/exceptions/app.exception";
+
 export class Farm {
   constructor(
     public readonly id: string,
@@ -10,7 +12,10 @@ export class Farm {
     public readonly producerId: string,
   ) {
     if (arableArea + vegetationArea > totalArea) {
-      throw new Error('A soma das áreas agricultável e de vegetação não pode ultrapassar a área total.');
+      throw new AppException(
+        "FARM_TOTAL_AREA_EXCEEDED", 
+        'A soma das áreas agricultável e de vegetação não pode ultrapassar a área total'
+      );
     }
   }
 } 
