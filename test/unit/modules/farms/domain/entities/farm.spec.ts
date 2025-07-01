@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Farm } from 'src/modules/farms/domain/entities/farm';
+import { AppException } from 'src/shared/exceptions/app.exception';
 
 describe('Farm Entity', () => {
   it('should create a valid farm', () => {
@@ -32,7 +33,8 @@ describe('Farm Entity', () => {
     const totalArea = 50;
     const arableArea = 30;
     const vegetationArea = 30;
-    expect(() => {
+
+    try {
       new Farm(
         faker.string.uuid(),
         faker.company.name(),
@@ -43,6 +45,10 @@ describe('Farm Entity', () => {
         vegetationArea,
         faker.string.uuid(),
       );
-    }).toThrow('A soma das áreas agricultável e de vegetação não pode ultrapassar a área total.');
+    } catch (error) {
+      expect(error).toBeInstanceOf(AppException);
+      expect(error.message).toBe('A soma das áreas agricultável e de vegetação não pode ultrapassar a área total');
+      expect(error.code).toBe('FARM_TOTAL_AREA_EXCEEDED');
+    }
   });
 }); 
