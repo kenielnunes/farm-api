@@ -1,9 +1,10 @@
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CultureValidatorService } from 'src/modules/cultures/domain/services/culture-validator.service';
+import { Farm } from 'src/modules/farms/domain/entities/farm';
 import { FarmEntity } from 'src/modules/farms/infra/entities/farm.entity';
 import { IFarmRepository } from 'src/modules/farms/infra/repositories/farm.repository.interface';
-import { ProducerEntity } from 'src/modules/producers/infra/entities/producer.entity';
+import { Producer } from 'src/modules/producers/domain/entities/producer';
 import { AppException } from 'src/shared/exceptions/app.exception';
 
 describe('CultureValidatorService', () => {
@@ -17,6 +18,7 @@ describe('CultureValidatorService', () => {
       findByProducerId: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
+      findAll: jest.fn(),
     };
 
     const module: TestingModule = await Test.createTestingModule({
@@ -42,7 +44,7 @@ describe('CultureValidatorService', () => {
       const plantedArea = 100;
       const farmArableArea = 200;
 
-      const mockProducer: ProducerEntity = {
+      const mockProducer: Producer = {
         id: faker.string.uuid(),
         document: faker.string.numeric(14),
         name: faker.person.fullName(),
@@ -50,9 +52,6 @@ describe('CultureValidatorService', () => {
         state: faker.location.state({
           abbreviated: true,
         }),
-        farms: [],
-        createdAt: faker.date.past(),
-        updatedAt: faker.date.recent(),
       };
 
       const mockFarm: FarmEntity = {
@@ -66,7 +65,7 @@ describe('CultureValidatorService', () => {
         arableArea: farmArableArea,
         vegetationArea: 300,
         producerId: faker.string.uuid(),
-        producer: mockProducer,
+        producer: mockProducer as any,
         cultures: [],
         createdAt: faker.date.past(),
         updatedAt: faker.date.recent(),
@@ -93,7 +92,7 @@ describe('CultureValidatorService', () => {
       const plantedArea = 300;
       const farmArableArea = 200;
 
-      const mockProducer: ProducerEntity = {
+      const mockProducer: Producer = {
         id: faker.string.uuid(),
         document: faker.string.numeric(14),
         name: faker.person.fullName(),
@@ -101,12 +100,9 @@ describe('CultureValidatorService', () => {
         state: faker.location.state({
           abbreviated: true,
         }),
-        farms: [],
-        createdAt: faker.date.past(),
-        updatedAt: faker.date.recent(),
       };
 
-      const mockFarm: FarmEntity = {
+      const mockFarm: Farm = {
         id: farmId,
         name: faker.company.name(),
         city: faker.location.city(),
@@ -117,10 +113,6 @@ describe('CultureValidatorService', () => {
         arableArea: farmArableArea,
         vegetationArea: 300,
         producerId: faker.string.uuid(),
-        producer: mockProducer,
-        cultures: [],
-        createdAt: faker.date.past(),
-        updatedAt: faker.date.recent(),
       };
 
       (mockFarmRepository.findById as jest.Mock).mockResolvedValue(mockFarm);
