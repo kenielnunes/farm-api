@@ -17,8 +17,10 @@ export class CreateUserUseCase {
 
   async execute(dto: CreateUserDto) {
     this.logger.info({ email: dto.email, role: dto.role }, 'Tentativa de cadastro de usuário');
+
     // Verifica se já existe usuário com o e-mail
     const exists = await this.userRepository.findByEmail(dto.email);
+
     if (exists) {
       this.logger.warn({ email: dto.email }, 'E-mail já cadastrado');
       throw new AppException('EMAIL_CONFLICT', 'E-mail já cadastrado', HttpStatus.CONFLICT);
@@ -34,9 +36,11 @@ export class CreateUserUseCase {
     console.log('userDomain -> ', user);
 
     const hashedPassword = await bcrypt.hash(user.password, 10);
+
     user.password = hashedPassword;
 
     const saved = await this.userRepository.create(user);
+
     this.logger.info({ userId: saved.id, email: saved.email }, 'Usuário cadastrado com sucesso');
     return saved;
   }
