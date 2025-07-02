@@ -30,14 +30,14 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - name: Run tests
+      - name: Run tests with coverage
         env:
           DB_HOST: localhost
           DB_PORT: 5432
           DB_USER: postgres
           DB_PASSWORD: postgres
           DB_NAME: farm_api_test
-        run: npm run test -- --runInBand
+        run: npm run test:coverage -- --runInBand
       - name: Deploy to Render
         if: github.ref == 'refs/heads/master'
         run: |
