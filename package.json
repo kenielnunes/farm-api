@@ -21,7 +21,8 @@
     "migration:create": "ts-node ./node_modules/typeorm/cli.js migration:create",
     "migration:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -d src/config/typeorm.config.ts",
     "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/config/typeorm.config.ts",
-    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d src/config/typeorm.config.ts"
+    "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -d src/config/typeorm.config.ts",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -85,7 +86,7 @@
       "^src/(.*)$": "<rootDir>/src/$1"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/modules/**/domain/entities/*.ts"
     ],
     "coverageDirectory": "coverage",
     "testEnvironment": "node"
