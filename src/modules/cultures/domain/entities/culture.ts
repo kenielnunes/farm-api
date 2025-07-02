@@ -8,6 +8,9 @@ export class Culture {
     public readonly harvestYear: number,
     public readonly farmId: string,
   ) {
+    if (!name || name.trim().length === 0) {
+      throw new AppException('INVALID_NAME', 'O nome da cultura não pode ser vazio');
+    }
     this.validateHarvestYear();
     this.validatePlantedArea();
   }

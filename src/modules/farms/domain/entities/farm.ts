@@ -11,6 +11,15 @@ export class Farm {
     public readonly vegetationArea: number,
     public readonly producerId: string,
   ) {
+    if (!name || name.trim().length === 0) {
+      throw new AppException('INVALID_NAME', 'O nome da fazenda não pode ser vazio');
+    }
+    if (!city || city.trim().length === 0) {
+      throw new AppException('INVALID_CITY', 'A cidade da fazenda não pode ser vazia');
+    }
+    if (!state || state.trim().length === 0) {
+      throw new AppException('INVALID_STATE', 'O estado da fazenda não pode ser vazio');
+    }
     if (arableArea + vegetationArea > totalArea) {
       throw new AppException(
         "FARM_TOTAL_AREA_EXCEEDED",
