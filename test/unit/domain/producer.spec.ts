@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Producer } from 'src/modules/producers/domain/entities/producer';
 
-describe('Producer Entity', () => {
-  it('should create a valid producer', () => {
+describe('Entidade Produtor', () => {
+  it('deve criar um produtor válido', () => {
     const id = faker.string.uuid();
     const name = faker.person.fullName();
     const document = faker.string.numeric(11);
@@ -22,5 +22,22 @@ describe('Producer Entity', () => {
     expect(producer.document).toBe(document);
     expect(producer.city).toBe(city);
     expect(producer.state).toBe(state);
+  });
+
+  it('deve aceitar um CNPJ válido como documento', () => {
+    const id = faker.string.uuid();
+    const name = faker.person.fullName();
+    const document = faker.string.numeric(14);
+    const city = faker.location.city();
+    const state = faker.location.state({ abbreviated: true });
+
+    const producer = new Producer(
+      id,
+      name,
+      document,
+      city,
+      state,
+    );
+    expect(producer.document).toBe(document);
   });
 }); 
