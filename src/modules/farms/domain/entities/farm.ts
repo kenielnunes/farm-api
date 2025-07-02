@@ -13,9 +13,13 @@ export class Farm {
   ) {
     if (arableArea + vegetationArea > totalArea) {
       throw new AppException(
-        "FARM_TOTAL_AREA_EXCEEDED", 
+        "FARM_TOTAL_AREA_EXCEEDED",
         'A soma das áreas agricultável e de vegetação não pode ultrapassar a área total'
       );
     }
+  }
+
+  isPlantedAreaValid(plantedArea: number): boolean {
+    return plantedArea <= this.arableArea;
   }
 } 
