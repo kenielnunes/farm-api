@@ -5,7 +5,7 @@ describe('Entidade Produtor', () => {
   it('deve criar um produtor válido', () => {
     const id = faker.string.uuid();
     const name = faker.person.fullName();
-    const document = faker.string.numeric(11);
+    const document = '52998224725';
     const city = faker.location.city();
     const state = faker.location.state({ abbreviated: true });
 
@@ -27,7 +27,7 @@ describe('Entidade Produtor', () => {
   it('deve aceitar um CNPJ válido como documento', () => {
     const id = faker.string.uuid();
     const name = faker.person.fullName();
-    const document = faker.string.numeric(14);
+    const document = '11444777000161';
     const city = faker.location.city();
     const state = faker.location.state({ abbreviated: true });
 
