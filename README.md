@@ -159,8 +159,13 @@ erDiagram
 
 ## 🖼️ Arquitetura do sistema
 
-O projeto segue o padrão **Clean Architecture**, separando responsabilidades em camadas bem definidas:
+O domínio do sistema contempla:
+- **Produtor Rural:** Cadastro, autenticação e gerenciamento de produtores.
+- **Fazenda:** Cadastro, listagem, atualização e exclusão de fazendas vinculadas a produtores.
+- **Culturas:** Registro de culturas agrícolas por fazenda, com área plantada e ano de colheita.
+- **Dashboard:** Relatórios agregados por estado, cultura e uso do solo.
 
+A arquitetura segue o padrão **Clean Architecture**, separando responsabilidades em camadas bem definidas:
 - **domain/**: Entidades de domínio e regras de negócio puras
 - **application/**: Casos de uso (use cases), orquestram regras de negócio
 - **infra/**: Implementações de repositórios, entidades do TypeORM, acesso a dados
@@ -183,6 +188,74 @@ src/modules/farms/
 │   ├── controllers/        # Controllers da API
 │   └── dto/                # Data Transfer Objects (entrada/saída)
 ```
+
+---
+
+## 🧪 Estrutura e Execução dos Testes
+
+A API possui testes unitários e de integração organizados da seguinte forma:
+
+```
+test/
+├── unit/                # Testes unitários
+│   ├── domain/          # Testes de entidades e regras de domínio
+│   │   ├── user.spec.ts
+│   │   ├── culture.spec.ts
+│   │   ├── farm.spec.ts
+│   │   ├── producer.spec.ts
+│   │   └── dashboard.spec.ts
+│   └── shared/
+│       └── domain/
+│           └── validators/
+│               └── document.validator.spec.ts
+├── integration/         # Testes de integração
+│   └── modules/
+│       └── producers/   # Testes de integração do módulo producers
+└── jest-setup.ts        # Configuração global de testes
+```
+
+### Comandos para rodar os testes
+
+- **Executar todos os testes:**
+  ```bash
+  npm test
+  ```
+- **Testes em modo watch:**
+  ```bash
+  npm run test:watch
+  ```
+- **Cobertura de testes:**
+  ```bash
+  npm run test:cov
+  ```
+- **Testes de integração:**
+  ```bash
+  npm run test:e2e
+  ```
+
+> Os testes utilizam [Jest](https://jestjs.io/) e seguem convenção `.spec.ts`.
+
+---
+
+## 🛠️ Comandos Principais
+
+- **Rodar em desenvolvimento:**
+  ```bash
+  npm run start:dev
+  ```
+- **Rodar em produção:**
+  ```bash
+  npm run build && npm run start:prod
+  ```
+- **Executar migrações:**
+  ```bash
+  npm run migration:run
+  ```
+- **Reverter migração:**
+  ```bash
+  npm run migration:revert
+  ```
+
 ---
 
 ## 🤝 Contribuindo
