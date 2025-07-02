@@ -83,4 +83,16 @@ describe('Entidade Fazenda', () => {
       expect(farm.isPlantedAreaValid(100)).toBe(false);
     });
   });
+
+  it('deve lançar erro se o nome for vazio', () => {
+    expect(() => new Farm('id', '', 'Cidade', 'SP', 100, 50, 50, 'produtor')).toThrow();
+  });
+
+  it('deve lançar erro se a cidade for vazia', () => {
+    expect(() => new Farm('id', 'Fazenda', '', 'SP', 100, 50, 50, 'produtor')).toThrow();
+  });
+
+  it('deve lançar erro se o estado for vazio', () => {
+    expect(() => new Farm('id', 'Fazenda', 'Cidade', '', 100, 50, 50, 'produtor')).toThrow();
+  });
 }); 

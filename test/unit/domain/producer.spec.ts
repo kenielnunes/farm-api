@@ -40,4 +40,16 @@ describe('Entidade Produtor', () => {
     );
     expect(producer.document).toBe(document);
   });
+
+  it('deve lançar erro se o nome for vazio', () => {
+    expect(() => new Producer('id', '', '52998224725', 'Cidade', 'SP')).toThrow();
+  });
+
+  it('deve lançar erro se a cidade for vazia', () => {
+    expect(() => new Producer('id', 'Nome', '52998224725', '', 'SP')).toThrow();
+  });
+
+  it('deve lançar erro se o estado for vazio', () => {
+    expect(() => new Producer('id', 'Nome', '52998224725', 'Cidade', '')).toThrow();
+  });
 }); 
